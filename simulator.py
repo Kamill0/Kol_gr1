@@ -1,22 +1,22 @@
 import random
 import time
+from plane import Plane
+
 
 class Simulator(object):
 	"""Class represents a simple flight simulator"""
 	def __init__(self, angle):
 		"""Constructor method"""
-		self.angle = angle
-	def adjust(self):
-		"""Returns an angle adjustment"""
-		return self.angle/2.0
-	def std_error(self, a, b):
-		"""Returns a standard error"""
-		return random.gauss(a,b) 
+		self.plane = Plane(angle)
+
 	def start(self): 
 		"""Performs a simulation"""
 		while True:
-			self.angle = self.angle - self.adjust() + self.std_error(0,1)		
-			print("Current angle: " + str(self.angle))
-			print("Applied correction: " + str(self.adjust()))
+			self.plane.angle = self.plane.angle - self.plane.adjust() + self.plane.std_error(0,1)		
+			print("Current angle: " + str(self.plane.angle))
+			print("Applied correction: " + str(self.plane.adjust()))
 			time.sleep(1)
 
+if __name__ == "__main__":
+	sim = Simulator(0)
+	sim.start()
